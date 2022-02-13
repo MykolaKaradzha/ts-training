@@ -1,16 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './OnOff.module.css'
 
-type propsType ={
-    working: boolean;
+type PropsType = {
+    working: boolean
 }
 
-const OnOff = (props: propsType) => {
+const OnOff = (props: PropsType) => {
+    //useState
+    const [working, setWorking] = useState<boolean>(true)
+    let onClickOnHandler = () => {
+        setWorking(true)
+    }
+    let offClickOnHandler = () => {
+        setWorking(false)
+    }
+
+    //styles
+    const onStyle = {
+        width: "30px",
+        height: "20px",
+        display: "inline-block",
+        backgroundColor: working ? "green" : "white",
+        margin: "5px",
+        padding: "5px",
+        border: "solid black 1px"
+    }
+    const offStyle = {
+        width: "30px",
+        height: "20px",
+        display: "inline-block",
+        backgroundColor: !working ? "red" : "white",
+        margin: "5px",
+        padding: "5px",
+        border: "solid black 1px"
+    }
+    const circleStyle = {
+        width: "10px",
+        height: "10px",
+        borderRadius: "50%",
+        display: "inline-block",
+        backgroundColor: working ? "green" : "red",
+        marginLeft: "5px",
+        border: "solid black 1px"
+    }
+
+
     return (
         <section className={s.wrapper}>
-            <div className={`${props.working && s.switched_on}`}>ON</div>
-            <div className={`${!props.working && s.switched_off}`}>OFF</div>
-            <div className={`${s.circle} ${props.working && s.switched_on} ${!props.working && s.switched_off}`}></div>
+            <div style={onStyle} onClick={onClickOnHandler}>ON</div>
+            <div style={offStyle} onClick={offClickOnHandler}>OFF</div>
+            <div style={circleStyle}></div>
         </section>
     );
 };

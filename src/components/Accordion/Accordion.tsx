@@ -1,5 +1,4 @@
 import React from "react";
-import {findAllByDisplayValue} from "@testing-library/react";
 
 type AccordionPropsType = {
     titleValue: string;
