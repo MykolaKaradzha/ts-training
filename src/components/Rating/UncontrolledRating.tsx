@@ -1,36 +1,38 @@
 import React, {useState} from "react";
 
-type RatingPropsType = {
-    value: 0 | 1 | 2 | 3 | 4 | 5
-};
+type RatingPropsType = 0 | 1 | 2 | 3 | 4 | 5
+
 type StarPropsType = {
-    selected?: boolean;
+    selected?: boolean
+    setValue:  (value:RatingPropsType) => void
+    newValue: RatingPropsType
+
+
 }
 
-function Rating(props: RatingPropsType) {
-    const [value, setValue] = useState<string>("0");
-    const convertedValue = parseInt(value);
-    const onClickRatingHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setValue(event.currentTarget.value)
-    }
+function Rating() {
+    const [value, setValue] = useState<RatingPropsType>(0);
     return <div>
-        <Star selected={convertedValue > 0}/><button onClick={onClickRatingHandler} value={1}>1</button>
-        <Star selected={convertedValue > 1}/><button onClick={onClickRatingHandler} value={2}>2</button>
-        <Star selected={convertedValue > 2}/><button onClick={onClickRatingHandler} value={3}>3</button>
-        <Star selected={convertedValue > 3}/><button onClick={onClickRatingHandler} value={4}>4</button>
-        <Star selected={convertedValue > 4}/><button onClick={onClickRatingHandler} value={5}>5</button>
+        <Star selected={value > 0} setValue={setValue} newValue={1}/>
+        <Star selected={value > 1} setValue={setValue} newValue={2}/>
+        <Star selected={value > 2} setValue={setValue} newValue={3}/>
+        <Star selected={value > 3} setValue={setValue} newValue={4}/>
+        <Star selected={value > 4} setValue={setValue} newValue={5}/>
+
 
     </div>
 
 
     function Star(props: StarPropsType) {
-        if (props.selected) {
-            return <span><b>star </b></span>
-        } else {
-            return <span>star </span>
+        const onClickHandler = () => {
+            setValue(props.newValue)
+        }
+         return <span onClick={onClickHandler}>
+             {props.selected ? <b>star </b> : 'star '}
+         </span>
         }
 
-    }
+
 }
 
 export default Rating;

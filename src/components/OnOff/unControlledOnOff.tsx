@@ -2,18 +2,20 @@ import React, {useState} from 'react';
 import s from './OnOff.module.css'
 
 type PropsType = {
-    working: boolean
-    setWorking: (working:boolean) => void
+    onChange: (working:boolean) => void
+
 }
 
-const OnOff:React.FC<PropsType> = ({working, setWorking}) => {
+const UnControlledOnOff = (props: PropsType) => {
     //useState
+    const [working, setWorking] = useState<boolean>(true)
     let onClickOnHandler = () => {
         setWorking(true)
+        props.onChange(true)
     }
-
-    let onClickOffHandler = () => {
+    let offClickOnHandler = () => {
         setWorking(false)
+        props.onChange(false)
     }
 
     //styles
@@ -49,10 +51,10 @@ const OnOff:React.FC<PropsType> = ({working, setWorking}) => {
     return (
         <section className={s.wrapper}>
             <div style={onStyle} onClick={onClickOnHandler}>ON</div>
-            <div style={offStyle} onClick={onClickOffHandler}>OFF</div>
+            <div style={offStyle} onClick={offClickOnHandler}>OFF</div>
             <div style={circleStyle}></div>
         </section>
     );
 };
 
-export default OnOff;
+export default UnControlledOnOff;
